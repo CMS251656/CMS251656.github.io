@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二次元审美调查 · 实时结果</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 结果页特定样式 */
+        .stats-container {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .data-preview {
+            margin: 30px 0;
+            border: 2px dashed #ffb6c1;
+            border-radius: 20px;
+            padding: 20px;
+            background: #fff8fa;
+        }
+        
+        .data-preview iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(255,150,200,0.2);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin: 10px;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 20px 35px rgba(102,126,234,0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #ffb6c1, #ff99aa);
+        }
+        
+        .note {
+            margin-top: 30px;
+            padding: 20px;
+            background: #fef9e7;
+            border-left: 4px solid #f1c40f;
+            border-radius: 8px;
+            font-size: 0.95em;
+            color: #7f8c8d;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 调查实时结果</h1>
+            <p class="description">数据来源于腾讯文档智能表格，实时更新，公开透明</p>
+            <a href="index.html" class="btn btn-secondary">← 返回填写问卷</a>
+        </header>
+
+        <!-- 结果展示区 -->
+        <div class="stats-container">
+            <h2 style="text-align: center; color: #a65a7a; margin-bottom: 20px;">📋 原始数据表格</h2>
+            <p style="text-align: center; color: #7f8c8d;">下方直接嵌入腾讯文档智能表格，所有提交结果实时可见</p>
+            
+            <!-- 嵌入腾讯文档智能表格 -->
+            <div class="data-preview">
+                <iframe 
+                    src="https://docs.qq.com/smartsheet/DY0hEbHFGeGVuY1R4?tab=ss_v4yss3&nlc=1&viewId=fv1&embed=true" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <p>表格无法显示？点击下方按钮在新页面查看完整数据：</p>
+                <a href="https://docs.qq.com/smartsheet/DY0hEbHFGeGVuY1R4?tab=ss_v4yss3&nlc=1&viewId=fv1" 
+                   target="_blank" 
+                   class="btn">
+                    📊 在新页面查看完整表格
+                </a>
+            </div>
+        </div>
+
+        <!-- 学术说明 -->
+        <div class="note">
+            <strong>📌 数据说明：</strong> 
+            <ul style="margin-top: 10px; margin-left: 20px;">
+                <li>本页面直接嵌入腾讯文档智能表格，数据与收集表实时同步</li>
+                <li>任何人提交问卷后，数据会立即出现在此表格中</li>
+                <li>你可以查看所有原始回答，用于论文数据分析</li>
+                <li>如需导出Excel，请点击上方按钮在新页面打开后选择“导出”</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
