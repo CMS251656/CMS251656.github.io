@@ -137,7 +137,7 @@ legend {
     margin-bottom: 15px;
 }
 
-/* ===== 选项按钮美化 ===== */
+/* ===== 选项按钮美化（电脑版）- 保持横排 ===== */
 .scale {
     display: flex;
     gap: 10px;
@@ -170,7 +170,7 @@ legend {
 .scale input[type="radio"] {
     width: 20px;
     height: 20px;
-    accent-color: #ff99aa; /* 选中颜色 */
+    accent-color: #ff99aa;
 }
 
 /* ===== 提交按钮 ===== */
@@ -248,11 +248,10 @@ legend {
     100% { transform: rotate(360deg); }
 }
 
-/* ===== 手机端适配 ===== */
+/* ===== 🌟 手机端专用适配（不影响电脑版） ===== */
 @media screen and (max-width: 768px) {
     .container {
         padding: 15px;
-        width: 100%;
         max-width: 100%;
     }
     
@@ -290,23 +289,23 @@ legend {
         font-size: 0.95em;
     }
     
-    /* 让选项变成网格布局，适合手机 */
+    /* 手机版选项改为网格布局，便于触摸 */
     .scale {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 8px;
         padding: 10px;
-        border-radius: 20px;
         background: #fff0f5;
+        border-radius: 20px;
     }
     
     .scale label {
         min-width: auto;
-        padding: 8px 0;
+        padding: 10px 0;
         font-size: 0.9em;
     }
     
-    /* 基本信息部分的选项 */
+    /* 基本信息选项改为竖排 */
     .radio-group {
         flex-direction: column;
         gap: 10px;
@@ -329,58 +328,23 @@ legend {
     }
     
     /* 结果页调整 */
-    .stats-container {
-        padding: 15px;
-    }
-    
     .info-card {
         min-width: 100%;
     }
-    
-    .info-card .number {
-        font-size: 2em;
-    }
 }
 
-/* 针对更小的屏幕（宽度小于480px） */
+/* 超小屏幕手机 */
 @media screen and (max-width: 480px) {
     .scale {
-        grid-template-columns: repeat(2, 1fr); /* 两列布局 */
+        grid-template-columns: repeat(2, 1fr);
     }
     
     h1 {
         font-size: 1.5em;
     }
     
-    .dimension h3 {
-        font-size: 1em;
-    }
-    
     .submit-btn {
         font-size: 1.1em;
         padding: 12px;
-    }
-    
-    .total-count {
-        font-size: 1.5em;
-        padding: 10px 20px;
-    }
-    
-    .btn {
-        padding: 10px 20px;
-        font-size: 1em;
-    }
-}
-
-/* 超小屏幕（宽度小于320px） */
-@media screen and (max-width: 320px) {
-    .scale {
-        grid-template-columns: 1fr; /* 单列布局 */
-    }
-    
-    .scale label {
-        flex-direction: row;
-        justify-content: center;
-        gap: 10px;
     }
 }
