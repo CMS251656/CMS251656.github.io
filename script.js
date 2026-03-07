@@ -23,10 +23,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // ★★★ 跳转到腾讯文档填写页面（这是官方允许的方式）★★★
-            // 用户填完后可以手动点击链接返回你的结果页
-            alert('即将跳转到腾讯文档填写问卷，填写完成后请点击“返回结果页”查看数据。');
-            window.location.href = 'https://docs.qq.com/form/page/DY3ppeFpNeG1rT1dV';
+            // ★★★ 保存数据到本地（可选）★★★
+            // 如果你想在结果页显示刚才提交的数据，可以保存到 localStorage
+            localStorage.setItem('lastSubmission', JSON.stringify(answers));
+            
+            // ★★★ 跳转到结果页（而不是腾讯文档）★★★
+            alert('提交成功！正在跳转到结果页...');
+            window.location.href = 'result.html';
         });
     }
-});
+}
