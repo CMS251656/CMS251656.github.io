@@ -5,53 +5,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>二次元审美调查 · 实时结果</title>
     <link rel="stylesheet" href="style.css">
+    <!-- 新增：ECharts 和 Handsontable 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable@12.0.0/dist/handsontable.full.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/handsontable@12.0.0/dist/handsontable.full.min.js"></script>
     <style>
-        /* 结果页特定样式 */
+        /* 结果页专用样式 - 粉色可爱风 */
         .stats-container {
             background: white;
-            border-radius: 15px;
+            border-radius: 20px;
             padding: 25px;
             margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(255, 150, 200, 0.2);
+            border: 1px solid rgba(255, 200, 220, 0.5);
         }
         
-        .data-preview {
-            margin: 30px 0;
-            border: 2px dashed #ffb6c1;
-            border-radius: 20px;
-            padding: 20px;
-            background: #fff8fa;
+        .stats-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
         
-        /* iframe 嵌入样式 - 关键部分 */
-        .data-preview iframe {
+        .stats-header h2 {
+            color: #a65a7a;
+            font-size: 1.5em;
+            margin: 0;
+        }
+        
+        .total-count {
+            background: linear-gradient(135deg, #ffb6c1, #ff99aa);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.8em;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(255, 150, 200, 0.4);
+        }
+        
+        .total-count span {
+            font-size: 0.5em;
+            margin-right: 10px;
+        }
+        
+        .chart-container {
             width: 100%;
-            height: 600px;
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(255,150,200,0.2);
+            height: 400px;
+            margin: 20px 0;
+        }
+        
+        .data-table-container {
+            width: 100%;
+            height: 500px;
+            margin: 20px 0;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #ffe4ec;
         }
         
         .btn {
             display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #ffb6c1, #ff99aa);
             color: white;
             border-radius: 50px;
             text-decoration: none;
-            font-size: 1.2em;
+            font-size: 1.1em;
             font-weight: bold;
             transition: all 0.3s;
-            margin: 10px;
+            margin: 5px;
+            border: none;
+            cursor: pointer;
         }
         
         .btn:hover {
-            transform: scale(1.05) translateY(-3px);
-            box-shadow: 0 20px 35px rgba(102,126,234,0.4);
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 150, 200, 0.5);
         }
         
         .btn-secondary {
-            background: linear-gradient(135deg, #ffb6c1, #ff99aa);
+            background: linear-gradient(135deg, #667eea, #764ba2);
         }
         
         .note {
@@ -62,74 +96,71 @@
             border-radius: 8px;
             font-size: 0.95em;
             color: #7f8c8d;
-            text-align: left;
         }
         
-        .flow-guide {
-            background: #e8f4fd;
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 20px;
+        .action-bar {
             text-align: center;
+            margin: 20px 0;
         }
         
-        .flow-guide p {
-            margin: 5px 0;
-            color: #2c3e50;
+        .dimension-description {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+            padding: 15px;
+            background: #fff0f5;
+            border-radius: 15px;
         }
         
-        .flow-guide .arrow {
-            font-size: 1.5em;
-            color: #ff99aa;
+        .dimension-tag {
+            background: white;
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 0.9em;
+            color: #a65a7a;
+            border: 1px solid #ffb6c1;
+        }
+        
+        /* 问卷星嵌入容器 */
+        .wjx-embed {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(255, 150, 200, 0.2);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>📊 调查实时结果</h1>
-            <p class="description">数据来源于腾讯文档智能表格，实时更新，公开透明</p>
-            <a href="index.html" class="btn btn-secondary">← 返回填写问卷</a>
+            <h1>📊 调查实时统计看板</h1>
+            <p class="description">数据来源于问卷星 · 粉色可爱风</p>
+            <div class="action-bar">
+                <a href="index.html" class="btn btn-secondary">← 返回填写问卷</a>
+                <button class="btn" onclick="window.open('https://v.wjx.cn/vm/r0A2Qh2.aspx#', '_blank')">📝 新窗口填写</button>
+            </div>
         </header>
 
-        <!-- 流程引导 -->
-        <div class="flow-guide">
-            <p>📝 填写流程：</p>
-            <p>点击上方“返回填写问卷” → 填写后提交 → 系统跳转到腾讯文档 → 填写完成后回到本页查看数据</p>
-            <p class="arrow">👇 下方是实时数据表格 👇</p>
-        </div>
-
-        <!-- 结果展示区 - 嵌入腾讯文档智能表格 -->
+        <!-- 问卷星嵌入统计页面（你的嵌入代码） -->
         <div class="stats-container">
-            <h2 style="text-align: center; color: #a65a7a; margin-bottom: 20px;">📋 原始数据表格</h2>
-            <p style="text-align: center; color: #7f8c8d;">下方直接嵌入腾讯文档智能表格，所有提交结果实时可见 [citation:1][citation:2]</p>
-            
-            <!-- 嵌入腾讯文档智能表格 - 这是正确的方式，不会报跨域错误 -->
-            <div class="data-preview">
-                <iframe 
-                    src="https://docs.qq.com/smartsheet/DY0hEbHFGeGVuY1R4?tab=ss_v4yss3&nlc=1&viewId=fv1&embed=true" 
-                    allowfullscreen>
-                </iframe>
+            <div class="stats-header">
+                <h2>📊 问卷星实时统计</h2>
             </div>
-            
-            <div style="text-align: center; margin-top: 20px;">
-                <p>表格无法显示？点击下方按钮在新页面查看完整数据：</p>
-                <a href="https://docs.qq.com/smartsheet/DY0hEbHFGeGVuY1R4?tab=ss_v4yss3&nlc=1&viewId=fv1" 
-                   target="_blank" 
-                   class="btn">
-                    📊 在新页面查看完整表格
-                </a>
-            </div>
+            <!-- ★★★ 问卷星嵌入代码已填入 ★★★ -->
+            <script type='text/javascript' src='https://v.wjx.cn/handler/jqemed.ashx?activity=r0A2Qh2&width=750&source=iframe'></script>
         </div>
 
-        <!-- 学术说明 -->
+        <!-- 使用说明 -->
         <div class="note">
-            <strong>📌 数据说明：</strong> 
+            <strong>📌 数据说明：</strong>
             <ul style="margin-top: 10px; margin-left: 20px;">
-                <li>本页面使用 iframe 嵌入腾讯文档智能表格，符合跨域安全规范，不会报错 [citation:1]</li>
-                <li>点击“提交”后会跳转到腾讯文档官方页面填写，这是唯一被允许的提交方式</li>
-                <li>填写完成后，回到本页即可看到实时更新的数据</li>
-                <li>如需导出Excel，请点击上方按钮在新页面打开后选择“导出”</li>
+                <li>✅ 所有数据存储在问卷星云端，你登录问卷星后台即可查看全部结果</li>
+                <li>✅ 点击上方“新窗口填写”可测试提交</li>
+                <li>✅ 统计图表由问卷星自动生成，实时更新</li>
+                <li>✅ 如需导出Excel，请登录问卷星后台操作</li>
             </ul>
         </div>
     </div>

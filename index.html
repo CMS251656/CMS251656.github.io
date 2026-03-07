@@ -8,11 +8,9 @@
 </head>
 <body>
     <div class="container">
-	    <header>
-    <!-- 加个小头像装饰 -->
-    <img src="images/icon.png" alt="萝莉妈妈" style="width: 80px; height: 80px
+        <header>
             <h1>🎯 二次元审美与心理需求调查</h1>
-            <p class="description">您好！本问卷数据会存入云端，所有人看到的统计结果是一样的。匿名填写，感谢参与！</p>
+            <p class="description">您好！本问卷数据会存入问卷星云端，所有人看到的统计结果来自问卷星后台。匿名填写，感谢参与！</p>
         </header>
 
         <form id="surveyForm">
@@ -32,11 +30,11 @@
                     <label>您的年龄段：</label>
                     <select name="age" required>
                         <option value="">请选择</option>
-                        <option value="under18">18岁以下</option>
+                        <option value="18岁以下">18岁以下</option>
                         <option value="18-22">18-22岁</option>
                         <option value="23-28">23-28岁</option>
                         <option value="29-35">29-35岁</option>
-                        <option value="over35">35岁以上</option>
+                        <option value="35岁以上">35岁以上</option>
                     </select>
                 </div>
             </fieldset>
@@ -211,6 +209,10 @@
                 <button type="submit" class="submit-btn">📤 提交问卷</button>
             </fieldset>
         </form>
+
+        <div style="text-align: center; margin-top: 20px; color: #7f8c8d;">
+            📊 数据实时同步至问卷星 · <a href="result.html" target="_blank">查看统计结果</a>
+        </div>
     </div>
 
     <script src="script.js"></script>

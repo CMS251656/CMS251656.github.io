@@ -20,21 +20,13 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (missing.length > 0) {
                 alert('请回答所有问题后再提交');
-                return false;
+                return;
             }
             
-            // 保存数据到本地（可选）
-            try {
-                localStorage.setItem('lastSubmission', JSON.stringify(answers));
-            } catch (e) {
-                console.log('本地存储失败', e);
-            }
+            // ★★★ 跳转到问卷星填写页面（你的链接已填入）★★★
+            alert('即将跳转到问卷星填写问卷，请放心填写，数据会自动保存到问卷星后台。');
+            window.location.href = 'https://v.wjx.cn/vm/r0A2Qh2.aspx#';
             
-            // 跳转到结果页
-            alert('提交成功！正在跳转到结果页...');
-            window.location.href = 'result.html';
-            
-            // 关键：返回 false 确保表单不会刷新
             return false;
         });
     }
