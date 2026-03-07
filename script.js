@@ -23,8 +23,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // ★★★ 直接跳转到腾讯文档填写页面 ★★★
-            alert('即将跳转到腾讯文档填写问卷，请放心填写，数据会自动保存。');
+            // ★★★ 跳转到腾讯文档填写页面（这是官方允许的方式）★★★
+            // 用户填完后可以手动点击链接返回你的结果页
+            alert('即将跳转到腾讯文档填写问卷，填写完成后请点击“返回结果页”查看数据。');
             window.location.href = 'https://docs.qq.com/form/page/DY3ppeFpNeG1rT1dV';
         });
     }
