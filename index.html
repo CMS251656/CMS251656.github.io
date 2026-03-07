@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>二次元审美调查 · 问卷</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -17,12 +17,19 @@
             <!-- 基本信息 -->
             <fieldset>
                 <legend>📋 基本信息</legend>
+                
                 <div class="form-group">
                     <label>您的性别：</label>
                     <div class="radio-group">
-                        <label><input type="radio" name="gender" value="male" required> 男</label>
-                        <label><input type="radio" name="gender" value="female" required> 女</label>
-                        <label><input type="radio" name="gender" value="other" required> 其他</label>
+                        <label class="radio-label">
+                            <input type="radio" name="gender" value="male" required> 男
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="gender" value="female" required> 女
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="gender" value="other" required> 其他
+                        </label>
                     </div>
                 </div>
 
@@ -39,10 +46,186 @@
                 </div>
             </fieldset>
 
-            <!-- 量表题（只保留题目，省略具体代码以节省空间，但你要保留你原来的全部15道题） -->
-            <!-- ... 你的15道题保持不变 ... -->
+            <!-- D1 母性关怀 -->
+            <fieldset>
+                <legend>📊 心理需求测评</legend>
+                <p class="scale-desc">1=完全不同意，2=不太同意，3=一般，4=比较同意，5=完全同意</p>
+                
+                <div class="dimension">
+                    <h3>D1 母性关怀需求</h3>
+                    
+                    <div class="question">
+                        <p>1. 当我遇到挫折时，我渴望有人能无条件地接纳和安慰我</p>
+                        <div class="scale">
+                            <label><input type="radio" name="q1" value="1" required> 1</label>
+                            <label><input type="radio" name="q1" value="2"> 2</label>
+                            <label><input type="radio" name="q1" value="3"> 3</label>
+                            <label><input type="radio" name="q1" value="4"> 4</label>
+                            <label><input type="radio" name="q1" value="5"> 5</label>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <p>2. 我希望有人能无条件地包容我的一切</p>
+                        <div class="scale">
+                            <label><input type="radio" name="q2" value="1" required> 1</label>
+                            <label><input type="radio" name="q2" value="2"> 2</label>
+                            <label><input type="radio" name="q2" value="3"> 3</label>
+                            <label><input type="radio" name="q2" value="4"> 4</label>
+                            <label><input type="radio" name="q2" value="5"> 5</label>
+                        </div>
+                    </div>
+                </div>
 
-            <button type="submit" class="submit-btn">📤 提交问卷</button>
+                <!-- D2 幼态审美 -->
+                <div class="dimension">
+                    <h3>D2 幼态审美偏好</h3>
+                    
+                    <div class="question">
+                        <p>3. 我觉得外表可爱、看起来年龄小的角色更容易让我产生好感</p>
+                        <div class="scale">
+                            <label><input type="radio" name="q3" value="1" required> 1</label>
+                            <label><input type="radio" name="q3" value="2"> 2</label>
+                            <label><input type="radio" name="q3" value="3"> 3</label>
+                            <label><input type="radio" name="q3" value="4"> 4</label>
+                            <label><input type="radio" name="q3" value="5"> 5</label>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <p>4. 我觉得“萌”是一种很有吸引力的特质</p>
+                        <div class="scale">
+                            <label><input type="radio" name="q4" value="1" required> 1</label>
+                            <label><input type="radio" name="q4" value="2"> 2</label>
+                            <label><input type="radio" name="q4" value="3"> 3</label>
+                            <label><input type="radio" name="q4" value="4"> 4</label>
+                            <label><input type="radio" name="q4" value="5"> 5</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- D3 低社交压力 -->
+                <div class="dimension">
+                    <h3>D3 低社交压力需求</h3>
+                    
+                    <div class="question">
+                        <p>5. 我更喜欢不需要刻意维护就能持续的陪伴关系</p>
+                        <div class="scale">
+                            <label><input type="radio" name="q5" value="1" required> 1</label>
+                            <label><input type="radio" name="q5" value="2"> 2</label>
+                            <label><input type="radio" name="q5" value="3"> 3</label>
+                            <label><input type="radio" name="q5" value="4"> 4</label>
+                            <label><input type="radio" name="q5" value="5"> 5</label>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <p>6. 复杂的人际关系让我感到疲惫</p>
+                        <div class="scale">
+                            <label><input type="radio" name="q6" value="1" required> 1</label>
+                            <label><input type="radio" name="q6" value="2"> 2</label>
+                            <label><input type="radio" name="q6" value="3"> 3</label>
+                            <label><input type="radio" name="q6" value="4"> 4</label>
+                            <label><input type="radio" name="q6" value="5"> 5</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- D4 掌控感 -->
+                <div class="dimension">
+                    <h3>D4 掌控感需求</h3>
+                    
+                    <div class="question">
+                        <p>7. 我喜欢那些让我觉得可以放心依靠、不会离开我的角色</p>
+                        <div class="scale">
+                            <label><input type="radio" name="q7" value="1" required> 1</label>
+                            <label><input type="radio" name="q7" value="2"> 2</label>
+                            <label><input type="radio" name="q7" value="3"> 3</label>
+                            <label><input type="radio" name="q7" value="4"> 4</label>
+                            <label><input type="radio" name="q7" value="5"> 5</label>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <p>8. 我希望在关系中能感到安全，不用担心被抛弃</p>
+                        <div class="scale">
+                            <label><input type="radio" name="q8" value="1" required> 1</label>
+                            <label><input type="radio" name="q8" value="2"> 2</label>
+                            <label><input type="radio" name="q8" value="3"> 3</label>
+                            <label><input type="radio" name="q8" value="4"> 4</label>
+                            <label><input type="radio" name="q8" value="5"> 5</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- D5 孤独补偿 -->
+                <div class="dimension">
+                    <h3>D5 孤独补偿需求</h3>
+                    
+                    <div class="question">
+                        <p>9. 我经常感到孤独</p>
+                        <div class="scale">
+                            <label><input type="radio" name="q9" value="1" required> 1</label>
+                            <label><input type="radio" name="q9" value="2"> 2</label>
+                            <label><input type="radio" name="q9" value="3"> 3</label>
+                            <label><input type="radio" name="q9" value="4"> 4</label>
+                            <label><input type="radio" name="q9" value="5"> 5</label>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <p>10. 我需要某种形式的情感寄托</p>
+                        <div class="scale">
+                            <label><input type="radio" name="q10" value="1" required> 1</label>
+                            <label><input type="radio" name="q10" value="2"> 2</label>
+                            <label><input type="radio" name="q10" value="3"> 3</label>
+                            <label><input type="radio" name="q10" value="4"> 4</label>
+                            <label><input type="radio" name="q10" value="5"> 5</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- D6 责任规避 -->
+                <div class="dimension">
+                    <h3>D6 责任规避需求</h3>
+                    
+                    <div class="question">
+                        <p>11. 我害怕复杂的亲密关系带来的责任和压力</p>
+                        <div class="scale">
+                            <label><input type="radio" name="q11" value="1" required> 1</label>
+                            <label><input type="radio" name="q11" value="2"> 2</label>
+                            <label><input type="radio" name="q11" value="3"> 3</label>
+                            <label><input type="radio" name="q11" value="4"> 4</label>
+                            <label><input type="radio" name="q11" value="5"> 5</label>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <p>12. 自由对我来说比恋爱更重要</p>
+                        <div class="scale">
+                            <label><input type="radio" name="q12" value="1" required> 1</label>
+                            <label><input type="radio" name="q12" value="2"> 2</label>
+                            <label><input type="radio" name="q12" value="3"> 3</label>
+                            <label><input type="radio" name="q12" value="4"> 4</label>
+                            <label><input type="radio" name="q12" value="5"> 5</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 整体喜爱度 -->
+                <div class="form-group">
+                    <label>综合来看，你对“萝莉妈妈”这类角色的喜爱程度如何？</label>
+                    <div class="scale">
+                        <label><input type="radio" name="overall" value="1" required> 1 非常不喜欢</label>
+                        <label><input type="radio" name="overall" value="2"> 2 不太喜欢</label>
+                        <label><input type="radio" name="overall" value="3"> 3 一般</label>
+                        <label><input type="radio" name="overall" value="4"> 4 比较喜欢</label>
+                        <label><input type="radio" name="overall" value="5"> 5 非常喜欢</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">📤 提交问卷</button>
+            </fieldset>
         </form>
 
         <div style="text-align: center; margin-top: 20px; color: #7f8c8d;">
