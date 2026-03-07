@@ -23,32 +23,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // 添加时间戳
-            answers.timestamp = new Date().toISOString();
-            
-            // ★★★ 已替换为你的腾讯文档收集表链接 ★★★
-            const webhook = 'https://docs.qq.com/form/page/DY3ppeFpNeG1rT1dV';
-            
-            // 发送到腾讯文档
-            fetch(webhook, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(answers)
-            })
-            .then(response => {
-                if (response.ok) {
-                    alert('提交成功！感谢您的参与。');
-                    window.location.href = 'result.html';
-                } else {
-                    alert('提交失败，请稍后重试');
-                }
-            })
-            .catch(error => {
-                alert('提交失败，请检查网络后重试');
-                console.error('Error:', error);
-            });
+            // ★★★ 直接跳转到腾讯文档填写页面 ★★★
+            alert('即将跳转到腾讯文档填写问卷，请放心填写，数据会自动保存。');
+            window.location.href = 'https://docs.qq.com/form/page/DY3ppeFpNeG1rT1dV';
         });
     }
 });
