@@ -20,16 +20,22 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (missing.length > 0) {
                 alert('请回答所有问题后再提交');
-                return;
+                return false;
             }
             
-            // ★★★ 保存数据到本地（可选）★★★
-            // 如果你想在结果页显示刚才提交的数据，可以保存到 localStorage
-            localStorage.setItem('lastSubmission', JSON.stringify(answers));
+            // 保存数据到本地（可选）
+            try {
+                localStorage.setItem('lastSubmission', JSON.stringify(answers));
+            } catch (e) {
+                console.log('本地存储失败', e);
+            }
             
-            // ★★★ 跳转到结果页（而不是腾讯文档）★★★
+            // 跳转到结果页
             alert('提交成功！正在跳转到结果页...');
             window.location.href = 'result.html';
+            
+            // 关键：返回 false 确保表单不会刷新
+            return false;
         });
     }
-}
+});
