@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // 验证必填（只验证，不存数据）
+            // 验证必填
             const formData = new FormData(this);
             const answers = {};
             
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // ★★★ 跳转到腾讯文档填写页面 ★★★
+            // ★★★ 跳转到腾讯文档填写页面（你的正确链接）★★★
             alert('即将跳转到腾讯文档填写问卷，请放心填写，数据会自动保存。');
             window.location.href = 'https://docs.qq.com/form/page/DY3ppeFpNeG1rT1dV';
             
