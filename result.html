@@ -3,165 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>二次元审美调查 · 实时结果</title>
+    <title>提交成功</title>
     <link rel="stylesheet" href="style.css">
-    <!-- 新增：ECharts 和 Handsontable 库 -->
-    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable@12.0.0/dist/handsontable.full.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/handsontable@12.0.0/dist/handsontable.full.min.js"></script>
     <style>
-        /* 结果页专用样式 - 粉色可爱风 */
-        .stats-container {
+        .success-container {
+            text-align: center;
+            padding: 60px 20px;
             background: white;
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(255, 150, 200, 0.2);
-            border: 1px solid rgba(255, 200, 220, 0.5);
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(255,150,200,0.2);
+            max-width: 500px;
+            margin: 50px auto;
         }
-        
-        .stats-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .success-icon {
+            font-size: 80px;
             margin-bottom: 20px;
-            flex-wrap: wrap;
+            animation: bounce 1s ease;
         }
-        
-        .stats-header h2 {
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        h1 {
             color: #a65a7a;
-            font-size: 1.5em;
-            margin: 0;
+            margin-bottom: 20px;
+            font-size: 2.5em;
         }
-        
-        .total-count {
-            background: linear-gradient(135deg, #ffb6c1, #ff99aa);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-size: 1.8em;
-            font-weight: bold;
-            box-shadow: 0 5px 15px rgba(255, 150, 200, 0.4);
+        p {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.2em;
         }
-        
-        .total-count span {
-            font-size: 0.5em;
-            margin-right: 10px;
-        }
-        
-        .chart-container {
-            width: 100%;
-            height: 400px;
-            margin: 20px 0;
-        }
-        
-        .data-table-container {
-            width: 100%;
-            height: 500px;
-            margin: 20px 0;
-            border-radius: 15px;
-            overflow: hidden;
-            border: 1px solid #ffe4ec;
-        }
-        
         .btn {
             display: inline-block;
-            padding: 12px 30px;
+            padding: 15px 40px;
             background: linear-gradient(135deg, #ffb6c1, #ff99aa);
             color: white;
             border-radius: 50px;
             text-decoration: none;
-            font-size: 1.1em;
+            font-size: 1.2em;
             font-weight: bold;
             transition: all 0.3s;
-            margin: 5px;
-            border: none;
-            cursor: pointer;
         }
-        
         .btn:hover {
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 10px 25px rgba(255, 150, 200, 0.5);
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(255,150,200,0.5);
         }
-        
-        .btn-secondary {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-        }
-        
         .note {
             margin-top: 30px;
-            padding: 20px;
-            background: #fef9e7;
-            border-left: 4px solid #f1c40f;
-            border-radius: 8px;
-            font-size: 0.95em;
             color: #7f8c8d;
-        }
-        
-        .action-bar {
-            text-align: center;
-            margin: 20px 0;
-        }
-        
-        .dimension-description {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 15px 0;
-            padding: 15px;
-            background: #fff0f5;
-            border-radius: 15px;
-        }
-        
-        .dimension-tag {
-            background: white;
-            padding: 8px 15px;
-            border-radius: 30px;
             font-size: 0.9em;
-            color: #a65a7a;
-            border: 1px solid #ffb6c1;
-        }
-        
-        /* 问卷星嵌入容器 */
-        .wjx-embed {
-            width: 100%;
-            height: 600px;
-            border: none;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(255, 150, 200, 0.2);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>📊 调查实时统计看板</h1>
-            <p class="description">数据来源于问卷星 · 粉色可爱风</p>
-            <div class="action-bar">
-                <a href="index.html" class="btn btn-secondary">← 返回填写问卷</a>
-                <button class="btn" onclick="window.open('https://v.wjx.cn/vm/r0A2Qh2.aspx#', '_blank')">📝 新窗口填写</button>
+        <div class="success-container">
+            <div class="success-icon">✅</div>
+            <h1>提交成功！</h1>
+            <p>感谢您的参与，数据已提交至腾讯文档。</p>
+            <a href="index.html" class="btn">填写新问卷</a>
+            <div class="note">
+                <p>📌 提示：如果你没有跳转到腾讯文档，<br>请手动点击下方链接填写：</p>
+                <a href="https://docs.qq.com/form/page/DY3ppeFpNeG1rT1dV" target="_blank" style="color: #ff99aa;">→ 点此前往腾讯文档 ←</a>
             </div>
-        </header>
-
-        <!-- 问卷星嵌入统计页面（你的嵌入代码） -->
-        <div class="stats-container">
-            <div class="stats-header">
-                <h2>📊 问卷星实时统计</h2>
-            </div>
-            <!-- ★★★ 问卷星嵌入代码已填入 ★★★ -->
-            <script type='text/javascript' src='https://v.wjx.cn/handler/jqemed.ashx?activity=r0A2Qh2&width=750&source=iframe'></script>
-        </div>
-
-        <!-- 使用说明 -->
-        <div class="note">
-            <strong>📌 数据说明：</strong>
-            <ul style="margin-top: 10px; margin-left: 20px;">
-                <li>✅ 所有数据存储在问卷星云端，你登录问卷星后台即可查看全部结果</li>
-                <li>✅ 点击上方“新窗口填写”可测试提交</li>
-                <li>✅ 统计图表由问卷星自动生成，实时更新</li>
-                <li>✅ 如需导出Excel，请登录问卷星后台操作</li>
-            </ul>
         </div>
     </div>
 </body>

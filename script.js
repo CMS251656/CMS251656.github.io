@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // 收集所有答案
+            // 验证必填（只验证，不存数据）
             const formData = new FormData(this);
             const answers = {};
             
@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 answers[key] = value;
             }
             
-            // 验证必填
             const requiredFields = ['gender', 'age', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6', 
                                    'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'overall'];
             const missing = requiredFields.filter(field => !answers[field]);
@@ -23,9 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // ★★★ 跳转到问卷星填写页面（你的链接已填入）★★★
-            alert('即将跳转到问卷星填写问卷，请放心填写，数据会自动保存到问卷星后台。');
-            window.location.href = 'https://v.wjx.cn/vm/r0A2Qh2.aspx#';
+            // ★★★ 跳转到腾讯文档填写页面 ★★★
+            alert('即将跳转到腾讯文档填写问卷，请放心填写，数据会自动保存。');
+            window.location.href = 'https://docs.qq.com/form/page/DY3ppeFpNeG1rT1dV';
             
             return false;
         });
