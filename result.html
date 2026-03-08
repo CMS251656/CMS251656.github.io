@@ -109,7 +109,7 @@
     <div class="header-stats">
         <div class="title-section">
             <h1>✨ 母性萌妹 · 实时看板</h1>
-            <p>数据模拟 · 每日自动校准</p>
+            <p>数据模拟 · 每日零点自动刷新</p>
         </div>
         <div class="count-card">
             <div class="count-number" id="totalDisplay">102</div>
@@ -122,43 +122,37 @@
     </div>
 
     <div class="fake-note">
-        📆 样本每日刷新 · 当前数据基于社会模拟
+        📆 每日零点自动+1~5人 · 当前数据基于社会模拟
     </div>
 
     <div class="action-buttons">
         <a href="index.html" class="btn btn-white">⬅ 继续填写</a>
-        <button class="btn btn-pink" onclick="forceRefresh()">🔄 手动刷新</button>
+        <button class="btn btn-pink" onclick="replayAnimation()">🔄 刷新图表</button>
     </div>
 </div>
 
 <script>
     (function() {
-        // 伪造数据（符合社会现状）
+        // 固定数据，永不改变
         const BASE_MEANS = [4.6, 4.3, 3.2, 4.5, 3.9, 2.6, 4.2];
         const dimNames = ['母性关怀', '幼态审美', '低社交压力', '掌控感', '孤独补偿', '责任规避', '整体喜爱度'];
-
-        // 总人数管理（存在localStorage里，每日自动加随机数）
-        function getFakeTotal() {
-            const KEY = 'fake_total';
-            const DATE_KEY = 'fake_date';
-            const today = new Date().toDateString();
-            let saved = localStorage.getItem(KEY);
-            let lastDate = localStorage.getItem(DATE_KEY);
-
-            if (!saved || lastDate !== today) {
-                let base = saved ? parseInt(saved) : 102;
-                let increment = Math.floor(Math.random() * 5) + 1;
-                let newTotal = base + increment;
-                localStorage.setItem(KEY, newTotal);
-                localStorage.setItem(DATE_KEY, today);
-                return newTotal;
-            }
-            return parseInt(saved);
+        
+        // ===== 总人数初始化 =====
+        const TOTAL_KEY = 'total_count';
+        let total = localStorage.getItem(TOTAL_KEY);
+        
+        // 如果没有存储过，初始化为102
+        if (!total) {
+            total = 102;
+            localStorage.setItem(TOTAL_KEY, total);
+        } else {
+            total = parseInt(total);
         }
+        
+        // 显示总人数
+        document.getElementById('totalDisplay').innerText = total;
 
-        document.getElementById('totalDisplay').innerText = getFakeTotal();
-
-        // 初始化图表
+        // ===== 图表初始化 =====
         let chartDom = document.getElementById('mainChart');
         let myChart = echarts.init(chartDom);
 
@@ -195,7 +189,7 @@
         };
         myChart.setOption(option);
 
-        // 动画：柱子从0涨到目标值
+        // ===== 动画：柱子从0涨到目标值 =====
         function animateBars() {
             let steps = 30;
             let step = 0;
@@ -207,18 +201,39 @@
                 if (progress >= 1) clearInterval(timer);
             }, 50);
         }
+        
+        // 页面加载后播放一次动画
         window.addEventListener('load', () => setTimeout(animateBars, 200));
 
-        // 手动刷新：总人数+1~5，重播动画
-        window.forceRefresh = function() {
-            let current = parseInt(localStorage.getItem('fake_total') || '102');
-            let increment = Math.floor(Math.random() * 5) + 1;
-            localStorage.setItem('fake_total', current + increment);
-            localStorage.setItem('fake_date', new Date().toDateString());
-            document.getElementById('totalDisplay').innerText = current + increment;
+        // ===== 手动刷新：只重播动画，不改变人数 =====
+        window.replayAnimation = function() {
+            // 重置柱子为0
             myChart.setOption({ series: [{ data: [0,0,0,0,0,0,0] }] });
+            // 重播动画
             animateBars();
         };
+
+        // ===== 零点自动加人并刷新页面 =====
+        function scheduleMidnightIncrease() {
+            const now = new Date();
+            const midnight = new Date(now);
+            midnight.setHours(24, 0, 0, 0); // 第二天零点
+            const timeToMidnight = midnight - now;
+            
+            setTimeout(() => {
+                // 零点时：总人数+1~5，然后刷新页面
+                let currentTotal = parseInt(localStorage.getItem(TOTAL_KEY)) || 102;
+                let increment = Math.floor(Math.random() * 5) + 1;
+                let newTotal = currentTotal + increment;
+                localStorage.setItem(TOTAL_KEY, newTotal);
+                
+                // 刷新页面，显示新人数和动画
+                window.location.reload();
+            }, timeToMidnight);
+        }
+        
+        // 启动零点自动加人
+        scheduleMidnightIncrease();
     })();
 </script>
 </body>
