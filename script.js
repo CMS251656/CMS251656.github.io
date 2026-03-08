@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // 收集答案（只用于验证）
+            // 收集答案
             const formData = new FormData(this);
             const answers = {};
             for (let [key, value] of formData.entries()) {
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // ★★★ 直接跳转到成功页，不传任何数据 ★★★
+            // ★★★ 直接跳转到结果页，不传任何数据 ★★★
             alert('提交成功！感谢您的参与。');
             window.location.href = 'result.html';
         });
