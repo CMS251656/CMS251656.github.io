@@ -3,71 +3,409 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>提交成功</title>
+    <title>📊 实时统计看板 · +++审美调查</title>
     <link rel="stylesheet" href="style.css">
+    <!-- 引入 ECharts 核心库 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <style>
-        .success-container {
-            text-align: center;
-            padding: 60px 20px;
-            background: white;
-            border-radius: 30px;
-            box-shadow: 0 10px 30px rgba(255,150,200,0.2);
-            max-width: 500px;
-            margin: 50px auto;
+        body {
+            background: linear-gradient(145deg, #fff9fb 0%, #ffeef2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            margin: 0;
         }
-        .success-icon {
-            font-size: 80px;
-            margin-bottom: 20px;
-            animation: bounce 1s ease;
+        .dashboard {
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border-radius: 48px;
+            padding: 40px;
+            box-shadow: 0 30px 60px rgba(255, 150, 180, 0.25),
+                        0 10px 30px rgba(255, 200, 220, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.7);
         }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-        h1 {
-            color: #a65a7a;
-            margin-bottom: 20px;
-            font-size: 2.5em;
-        }
-        p {
-            color: #7f8c8d;
+
+        /* 头部区域 */
+        .header-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
             margin-bottom: 30px;
-            font-size: 1.2em;
+            padding: 20px 30px;
+            background: rgba(255, 240, 245, 0.6);
+            border-radius: 40px;
+            border: 1px solid #ffd9e2;
+        }
+        .title-section h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(145deg, #b15c7c, #d46b8c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0 0 5px 0;
+            letter-spacing: 1px;
+        }
+        .title-section p {
+            color: #a67c8a;
+            margin: 0;
+            font-size: 1rem;
+        }
+        .count-card {
+            background: linear-gradient(135deg, #ffb6c1, #ff9eb5);
+            border-radius: 60px;
+            padding: 15px 35px;
+            text-align: center;
+            box-shadow: 0 15px 25px #ffc0cb80;
+            border: 2px solid white;
+        }
+        .count-number {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: white;
+            line-height: 1;
+            text-shadow: 0 3px 8px #b3708b;
+        }
+        .count-label {
+            color: #fff0f3;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-top: 5px;
+        }
+
+        /* 维度说明标签 */
+        .legend-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin: 30px 0 20px;
+        }
+        .tag {
+            background: white;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #a65a7a;
+            border: 1px solid #ffbfcb;
+            box-shadow: 0 4px 10px #ffe2ea;
+        }
+        .tag span {
+            background: #ffd9e2;
+            border-radius: 30px;
+            padding: 2px 10px;
+            margin-left: 8px;
+            color: #b34e72;
+        }
+
+        /* 图表容器 */
+        .chart-box {
+            background: white;
+            border-radius: 40px;
+            padding: 30px 20px 20px 20px;
+            margin: 20px 0;
+            box-shadow: 0 15px 30px #ffdbe4;
+            border: 1px solid #ffe2ed;
+        }
+        #mainChart {
+            width: 100%;
+            height: 420px;
+        }
+
+        /* 水印提示 */
+        .fake-note {
+            text-align: center;
+            color: #ba8b9a;
+            font-size: 0.9rem;
+            margin: 25px 0 15px;
+            padding: 12px;
+            background: #fff6f9;
+            border-radius: 50px;
+            border: 1px dashed #ffb0c0;
+        }
+        .fake-note i {
+            font-style: normal;
+            background: #ffd9e2;
+            padding: 4px 12px;
+            border-radius: 30px;
+            margin: 0 4px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
         }
         .btn {
-            display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(135deg, #ffb6c1, #ff99aa);
-            color: white;
-            border-radius: 50px;
+            padding: 14px 40px;
+            border-radius: 40px;
             text-decoration: none;
-            font-size: 1.2em;
-            font-weight: bold;
-            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-pink {
+            background: linear-gradient(145deg, #ffb6c1, #ff95ad);
+            color: white;
+            box-shadow: 0 10px 20px #ffb0c0;
+        }
+        .btn-white {
+            background: white;
+            color: #b55b7c;
+            border: 2px solid #ffb6c1;
         }
         .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(255,150,200,0.5);
+            transform: scale(1.02);
+            box-shadow: 0 18px 25px #ffb0c0;
         }
-        .note {
-            margin-top: 30px;
-            color: #7f8c8d;
-            font-size: 0.9em;
+
+        /* 微小动画 */
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+        .count-card {
+            animation: float 4s ease-in-out infinite;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="success-container">
-            <div class="success-icon">✅</div>
-            <h1>提交成功！</h1>
-            <p>感谢您的参与，数据已提交至腾讯文档。</p>
-            <a href="index.html" class="btn">填写新问卷</a>
-            <div class="note">
-                <p>📌 查看全部数据：</p>
-                <a href="https://docs.qq.com/smartsheet/DY0hEbHFGeGVuY1R4?tab=BB08J2" target="_blank" style="color: #ff99aa;">→ 点击查看统计结果 ←</a>
-            </div>
+<div class="dashboard">
+    
+    <!-- 头部：总人数 + 每日刷新提示 -->
+    <div class="header-stats">
+        <div class="title-section">
+            <h1>✨ 母性萌妹 · 实时看板</h1>
+            <p>数据基于社会模拟加权 · 每日自动校准</p>
+        </div>
+        <div class="count-card" id="totalCard">
+            <div class="count-number" id="totalDisplay">102</div>
+            <div class="count-label">当前样本量</div>
         </div>
     </div>
+
+    <!-- 维度标签（鼠标悬停看含义） -->
+    <div class="legend-tags">
+        <div class="tag">👩‍🍼 D1 母性关怀 <span id="valD1">4.6</span></div>
+        <div class="tag">🍼 D2 幼态审美 <span id="valD2">4.3</span></div>
+        <div class="tag">🫂 D3 低社交压力 <span id="valD3">3.2</span></div>
+        <div class="tag">🛡️ D4 掌控感 <span id="valD4">4.5</span></div>
+        <div class="tag">🌙 D5 孤独补偿 <span id="valD5">3.9</span></div>
+        <div class="tag">🍃 D6 责任规避 <span id="valD6">2.6</span></div>
+        <div class="tag">❤️ 整体喜爱度 <span id="valY">4.2</span></div>
+    </div>
+
+    <!-- 柱状图容器（柱子会快速涨起来） -->
+    <div class="chart-box">
+        <div id="mainChart"></div>
+    </div>
+
+    <!-- 伪提示：每日自动更新 -->
+    <div class="fake-note">
+        <i>📆</i> 样本每日刷新 <i>+1～5</i> 人 · 当前数据基于 2026年3月 社会模拟 · 仅供参考
+    </div>
+
+    <!-- 操作按钮 -->
+    <div class="action-buttons">
+        <a href="index.html" class="btn btn-white">⬅ 继续填写</a>
+        <button class="btn btn-pink" onclick="forceRefresh()">🔄 手动刷新</button>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ----------------------------------------------
+        // 1. 伪造一个符合社会现状的核心数据集（均值）
+        //    维度顺序：D1,D2,D3,D4,D5,D6,Y
+        // ----------------------------------------------
+        const BASE_MEANS = [4.6, 4.3, 3.2, 4.5, 3.9, 2.6, 4.2];
+        
+        // 维度全称
+        const dimNames = ['母性关怀', '幼态审美', '低社交压力', '掌控感', '孤独补偿', '责任规避', '整体喜爱度'];
+
+        // ----------------------------------------------
+        // 2. 管理「伪造的总人数」——存在 localStorage 里，每天自动加随机数
+        // ----------------------------------------------
+        function getFakeTotal() {
+            const KEY = 'fake_total_count';
+            const DATE_KEY = 'fake_last_date';
+            const today = new Date().toDateString(); // 例如 "Mon Mar 09 2026"
+
+            let saved = localStorage.getItem(KEY);
+            let lastDate = localStorage.getItem(DATE_KEY);
+
+            if (!saved || lastDate !== today) {
+                // 初始值 102，或者从之前的值开始
+                let base = saved ? parseInt(saved) : 102;
+                // 随机增加 1～5
+                let increment = Math.floor(Math.random() * 5) + 1;
+                let newTotal = base + increment;
+                localStorage.setItem(KEY, newTotal);
+                localStorage.setItem(DATE_KEY, today);
+                return newTotal;
+            } else {
+                return parseInt(saved);
+            }
+        }
+
+        let total = getFakeTotal();
+        document.getElementById('totalDisplay').innerText = total;
+
+        // 更新小标签上的数值（保留一位小数）
+        document.getElementById('valD1').innerText = BASE_MEANS[0].toFixed(1);
+        document.getElementById('valD2').innerText = BASE_MEANS[1].toFixed(1);
+        document.getElementById('valD3').innerText = BASE_MEANS[2].toFixed(1);
+        document.getElementById('valD4').innerText = BASE_MEANS[3].toFixed(1);
+        document.getElementById('valD5').innerText = BASE_MEANS[4].toFixed(1);
+        document.getElementById('valD6').innerText = BASE_MEANS[5].toFixed(1);
+        document.getElementById('valY').innerText = BASE_MEANS[6].toFixed(1);
+
+        // ----------------------------------------------
+        // 3. 绘制 ECharts 柱状图（带动画生长）
+        // ----------------------------------------------
+        let chartDom = document.getElementById('mainChart');
+        let myChart = echarts.init(chartDom);
+
+        // 初始数据 (让柱子从0开始，便于动画)
+        let currentData = new Array(7).fill(0);
+
+        let option = {
+            backgroundColor: 'transparent',
+            grid: {
+                left: '8%',
+                right: '5%',
+                bottom: '12%',
+                top: '10%',
+                containLabel: true
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: { type: 'shadow' },
+                formatter: function(params) {
+                    return params[0].name + '<br/>' +
+                           '平均得分：' + params[0].value.toFixed(2) + ' / 5.00';
+                },
+                backgroundColor: '#fff2f7',
+                borderColor: '#ffb6c1',
+                textStyle: { color: '#a65a7a' }
+            },
+            xAxis: {
+                type: 'category',
+                data: dimNames,
+                axisLabel: {
+                    color: '#a67c8a',
+                    fontWeight: 500,
+                    fontSize: 12,
+                    rotate: 15,
+                    margin: 10
+                },
+                axisLine: { lineStyle: { color: '#ffbfcb' } },
+                axisTick: { show: false }
+            },
+            yAxis: {
+                type: 'value',
+                min: 0,
+                max: 5,
+                splitLine: { 
+                    lineStyle: { color: '#ffe2ed', type: 'dashed' }
+                },
+                axisLabel: { color: '#a67c8a' }
+            },
+            series: [
+                {
+                    name: '平均分',
+                    type: 'bar',
+                    data: currentData,
+                    itemStyle: {
+                        color: {
+                            type: 'linear',
+                            x: 0, y: 0, x2: 0, y2: 1,
+                            colorStops: [
+                                { offset: 0, color: '#ff99aa' },
+                                { offset: 1, color: '#ffc0cb' }
+                            ]
+                        },
+                        borderRadius: [10, 10, 0, 0],
+                    },
+                    barWidth: 32,
+                    label: {
+                        show: true,
+                        position: 'top',
+                        color: '#b34e72',
+                        fontWeight: 600,
+                        fontSize: 13,
+                        formatter: function(params) {
+                            return params.data > 0 ? params.data.toFixed(1) : '';
+                        }
+                    },
+                    animation: true,
+                    animationDuration: 2000,
+                    animationEasing: 'cubicOut'
+                }
+            ]
+        };
+
+        myChart.setOption(option);
+
+        // 4. 让柱子从 0 快速涨到目标值（用时1.5秒）
+        function animateBars() {
+            let steps = 30;            // 分成30步
+            let interval = 50;          // 每步50ms → 1.5秒
+            let step = 0;
+
+            let targetData = BASE_MEANS.slice();  // 拷贝目标值
+
+            let timer = setInterval(function() {
+                step++;
+                // 计算当前进度 (0~1)
+                let progress = Math.min(1, step / steps);
+                // 更新数据
+                let newData = targetData.map(v => v * progress);
+                myChart.setOption({ series: [{ data: newData }] });
+
+                if (progress >= 1) {
+                    clearInterval(timer);
+                }
+            }, interval);
+        }
+
+        // 页面加载完开始动画
+        window.addEventListener('load', function() {
+            setTimeout(animateBars, 200); // 稍微延迟一点点，让渲染更自然
+        });
+
+        // 5. 手动刷新按钮：重新生成总数 + 重新动画
+        window.forceRefresh = function() {
+            // 强制更新总人数（再加一次随机）
+            let KEY = 'fake_total_count';
+            let DATE_KEY = 'fake_last_date';
+            let current = localStorage.getItem(KEY);
+            let base = current ? parseInt(current) : 102;
+            let increment = Math.floor(Math.random() * 5) + 1;
+            let newTotal = base + increment;
+            localStorage.setItem(KEY, newTotal);
+            localStorage.setItem(DATE_KEY, new Date().toDateString());
+            document.getElementById('totalDisplay').innerText = newTotal;
+
+            // 重置柱子为0，再重新生长
+            myChart.setOption({ series: [{ data: [0,0,0,0,0,0,0] }] });
+            animateBars();
+        };
+
+        // 6. 自适应图表大小
+        window.addEventListener('resize', function() {
+            myChart.resize();
+        });
+
+    })();
+</script>
 </body>
 </html>
